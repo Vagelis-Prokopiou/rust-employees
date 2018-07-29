@@ -15,10 +15,12 @@ fn main() {
 
     loop {
         println!("What would you like to do?");
-        println!("1 to add a new employee.");
-        println!("2 to retrieve all existing employees.");
-        println!("3 to retrieve all existing employees per department");
-        println!("Please provide your input:");
+        println!("Press 1 to add a new employee.");
+        println!("Press 2 to retrieve all existing employees per department.");
+        println!("Press 3 to retrieve all existing employees of a specific department.");
+        println!("Press q to quit.");
+        println!();
+        println!("Please provide your selection:");
 
         io::stdin()
             .read_line(&mut user_input)
