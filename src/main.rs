@@ -52,13 +52,21 @@ fn main() {
             if employees_database.contains_key(&employee_department) {
                 let employees: &mut Vec<String> = employees_database.get_mut(&employee_department).unwrap();
                 employees.push(employee_name);
+                employees.sort();
             } else {
                 employees_database.insert(employee_department, vec![employee_name]);
             }
 
             println!("{:?}", employees_database);
         } else if user_selection == "2" {
-            println!("2 was selected");
+            println!("Please provide the desired department. The available departments are:");
+            println!("{:?}", employees_database.keys());
+            let department: String = get_user_input();
+            if !employees_database.contains_key(&department) {
+                println!("Wrong department. Please try again.");
+                continue;
+            }
+            println!("The employees of department \"{}\" are: {:?}.", department, employees_database.get(&department).unwrap());
         } else if user_selection == "3" {
             println!("3 was selected");
         } else if user_selection == "q" {
