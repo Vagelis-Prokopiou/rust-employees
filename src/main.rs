@@ -62,7 +62,8 @@ fn main() {
                 println!("Wrong department. Please try again.");
                 continue;
             }
-            println!("The employees of department \"{}\" are: {:?}.", department, employees_database.get(&department).unwrap());
+            println!("Department: {}", department);
+            println!("Employees: {:?}", employees_database.get(&department).unwrap());
         } else if user_action == "q" {
             break;
         } else {
