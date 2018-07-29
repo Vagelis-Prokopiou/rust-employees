@@ -6,20 +6,9 @@
     sorted alphabetically.
 */
 
-use std::io;
 use std::collections::BTreeMap;
 
-pub fn get_user_input() -> String {
-    let mut user_input: String = String::new();
-    io::stdin()
-        .read_line(&mut user_input)
-        .expect("Failed to read line.");
-    return user_input.trim().to_string();
-}
-
-pub fn is_valid_employee_provided(vector: &Vec<&str>) -> bool {
-    return vector.len() == 4 && vector[0] == "Add" && vector[2] == "to";
-}
+mod helpers;
 
 fn main() {
     let mut employees_database: BTreeMap<String, Vec<String>> = BTreeMap::new();
@@ -34,15 +23,15 @@ fn main() {
         println!();
         println!("Please provide your selection:");
 
-        let user_action: String = get_user_input();
+        let user_action: String = helpers::get_user_input();
 
         if user_action == "1" {
             println!("Please provide the new employee. E.g.: \"Add George to Sales\"");
 
-            let new_employee: String = get_user_input();
+            let new_employee: String = helpers::get_user_input();
             let tokens: Vec<&str> = new_employee.trim().split(' ').collect();
 
-            if !is_valid_employee_provided(&tokens) {
+            if !helpers::is_valid_employee_provided(&tokens) {
                 println!("Wrong format. Try \"Add George to Sales\"");
                 continue;
             }
@@ -68,7 +57,7 @@ fn main() {
         } else if user_action == "3" {
             println!("Please provide the desired department. The available departments are:");
             println!("{:?}", employees_database.keys());
-            let department: String = get_user_input();
+            let department: String = helpers::get_user_input();
             if !employees_database.contains_key(&department) {
                 println!("Wrong department. Please try again.");
                 continue;
@@ -81,5 +70,3 @@ fn main() {
         }
     }
 }
-
-
