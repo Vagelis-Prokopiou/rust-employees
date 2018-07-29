@@ -1,4 +1,4 @@
 [[package]]
-name = "employees"
+name = "employees_in_memory"
 version = "0.1.0"
 
