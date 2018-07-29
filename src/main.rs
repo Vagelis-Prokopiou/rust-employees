@@ -10,7 +10,7 @@ use std::collections::HashMap;
 use std::io;
 
 fn main() {
-    let mut employees_database: HashMap<&str, Vec<&str>> = HashMap::new();
+    let mut employees_database: HashMap<String, Vec<String>> = HashMap::new();
     let mut user_input: String = String::new();
 
     loop {
@@ -25,26 +25,19 @@ fn main() {
             .expect("Failed to read line.");
 
         let tokens: Vec<&str> = user_input.trim().split(' ').collect();
-        let employee_name: &str = tokens[1];
-        let employee_department: &str = tokens[3];
+        let employee_name: String = tokens[1].to_owned();
+        let employee_department: String = tokens[3].to_owned();
 
-        if employees_database.contains_key(employee_department) {
+        if employees_database.contains_key(&employee_department) {
             println!("employees_database.contains_key");
-            let employees: &mut Vec<&str> = employees_database.get_mut(employee_department).unwrap();
+            let employees: &mut Vec<String> = employees_database.get_mut(&employee_department).unwrap();
             employees.push(employee_name);
         } else {
             println!("NOT employees_database.contains_key");
             employees_database.insert(employee_department, vec![employee_name]);
         }
 
-
-        /*{
-            let employees: &mut Vec<&str> = employees_database.entry(department).or_insert(vec![]);
-            employees.push(name);
-        }
-
-        println!("{:?}", user_input);
-        println!("{:?}", employees_database);*/
+        println!("{:?}", employees_database);
         break;
     }
 }
