@@ -6,8 +6,8 @@
     sorted alphabetically.
 */
 
-use std::collections::HashMap;
 use std::io;
+use std::collections::BTreeMap;
 
 pub fn get_user_input() -> String {
     let mut user_input: String = String::new();
@@ -22,7 +22,7 @@ pub fn is_valid_employee_provided(vector: &Vec<&str>) -> bool {
 }
 
 fn main() {
-    let mut employees_database: HashMap<String, Vec<String>> = HashMap::new();
+    let mut employees_database: BTreeMap<String, Vec<String>> = BTreeMap::new();
 
     loop {
         println!();
@@ -33,9 +33,10 @@ fn main() {
         println!("Press q to quit.");
         println!();
         println!("Please provide your selection:");
-        let user_selection: String = get_user_input();
 
-        if user_selection == "1" {
+        let user_action: String = get_user_input();
+
+        if user_action == "1" {
             println!("Please provide the new employee. E.g.: \"Add George to Sales\"");
 
             let new_employee: String = get_user_input();
@@ -58,7 +59,13 @@ fn main() {
             }
 
             println!("{:?}", employees_database);
-        } else if user_selection == "2" {
+        } else if user_action == "2" {
+            for (key, value) in employees_database.iter() {
+                println!("Department: {}", key);
+                println!("Employees: {:?}", value);
+                println!();
+            }
+        } else if user_action == "3" {
             println!("Please provide the desired department. The available departments are:");
             println!("{:?}", employees_database.keys());
             let department: String = get_user_input();
@@ -67,9 +74,7 @@ fn main() {
                 continue;
             }
             println!("The employees of department \"{}\" are: {:?}.", department, employees_database.get(&department).unwrap());
-        } else if user_selection == "3" {
-            println!("3 was selected");
-        } else if user_selection == "q" {
+        } else if user_action == "q" {
             break;
         } else {
             println!("Wrong selection. Please, try again.");
